@@ -1,6 +1,6 @@
 
 
-````markdown
+
 # Project Laravel 12 - Setup Awal
 
 Project ini adalah setup awal Laravel 12 dengan konfigurasi koneksi ke database MySQL.
