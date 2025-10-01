@@ -14,8 +14,7 @@ Project ini adalah setup awal Laravel 12 dengan konfigurasi koneksi ke database 
 
 1. **Clone repository**
 ```bash
-git clone <url-repo-anda>
-cd <nama-folder-project>
+git clone git@github.com:Putra-pkwl03/siakk-project-be.git
 ````
 
 2. **Install dependencies**
