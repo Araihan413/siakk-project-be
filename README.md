@@ -9,7 +9,7 @@ Project ini adalah setup awal Laravel 12 dengan konfigurasi koneksi ke database 
 - Composer
 - MySQL
 - Laravel 12
-
+```
 ## Instalasi
 
 1. **Clone repository**
