@@ -1,20 +1,22 @@
 
+
 ````markdown
 # Project Laravel 12 - Setup Awal
 
 Project ini adalah setup awal Laravel 12 dengan konfigurasi koneksi ke database MySQL.
 
 ## Persyaratan
-- PHP >= 8.4
+- PHP >= 8.1
 - Composer
 - MySQL
 - Laravel 12
-```
+
 ## Instalasi
 
 1. **Clone repository**
 ```bash
 git clone git@github.com:Putra-pkwl03/siakk-project-be.git
+cd siakk-project-be
 ````
 
 2. **Install dependencies**
@@ -32,7 +34,7 @@ cp .env.example .env
 4. **Konfigurasi database**
    Edit file `.env` sesuai dengan setting MySQL Anda:
 
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -48,7 +50,6 @@ php artisan key:generate
 ```
 
 6. **Jalankan migration (opsional)**
-   Jika sudah ada migration:
 
 ```bash
 php artisan migrate
@@ -79,3 +80,4 @@ routes/    -> file routing
 * Belum ada fitur atau modul tambahan.
 
 ```
+
