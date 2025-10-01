@@ -6,7 +6,7 @@
 Project ini adalah setup awal Laravel 12 dengan konfigurasi koneksi ke database MySQL.
 
 ## Persyaratan
-- PHP >= 8.1
+- PHP >= 8.4
 - Composer
 - MySQL
 - Laravel 12
