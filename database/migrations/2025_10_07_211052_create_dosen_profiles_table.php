@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('dosen_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            // $table->string('nama_lengkap');
-            $table->string('nip')->unique();
-            $table->string('jabatan');
+            $table->string('nama_lengkap');
+            $table->string('nidn')->unique();
+            $table->string('program_studi')->nullable();
+            $table->string('departemen')->nullable();
+            $table->integer('usia')->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->string('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->timestamps();
