@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             // $table->string('nama_lengkap');
             $table->string('npm')->unique();
-            $table->string('prodi');
-            $table->string('angkatan')->nullable();
+            $table->string('program_studi')->nullable();
+            $table->string('semester')->nullable();
+            $table->integer('usia')->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
             $table->timestamps();
