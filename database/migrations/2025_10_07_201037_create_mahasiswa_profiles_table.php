@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mahasiswa_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            // $table->string('nama_lengkap');
+            $table->string('nama_lengkap');
             $table->string('npm')->unique();
             $table->string('program_studi')->nullable();
             $table->string('semester')->nullable();

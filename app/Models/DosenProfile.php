@@ -11,9 +11,12 @@ class DosenProfile extends Model
 
     protected $fillable = [
         'user_id',
-        // 'nama_lengkap',
-        'nip',
-        'jabatan',
+        'nama_lengkap',
+        'nidn',
+        'program_studi',
+        'departemen',
+        'usia',
+        'jenis_kelamin',
         'no_hp',
         'alamat',
     ];

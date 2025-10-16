@@ -25,14 +25,15 @@ class AuthController extends Controller
             'password' => 'required|min:6',
             // mahasiswa
             'npm' => 'nullable|string',
-            'prodi' => 'nullable|string',
-            'angkatan' => 'nullable|string',
+            'program_studi' => 'nullable|string',
+            'semester' => 'nullable|string',
             // umum
             'alamat' => 'nullable|string',
             'no_hp' => 'nullable|string',
             // dosen
-            'nip' => 'nullable|string',
-            'jabatan' => 'nullable|string',
+            'nidn' => 'nullable|string',
+            'program_studi' => 'nullable|string',
+            'departemen' => 'nullable|string',
         ]);
 
         $user = User::create([
@@ -45,9 +46,12 @@ class AuthController extends Controller
         if ($request->role === 'mahasiswa') {
             MahasiswaProfile::create([
                 'user_id' => $user->id,
+                'nama_lengkap' => $request->nama_lengkap,
                 'npm' => $request->npm,
-                'prodi' => $request->prodi,
-                'angkatan' => $request->angkatan,
+                'program_studi' => $request->program_studi,
+                'semester' => $request->semester,
+                'usia' => $request->usia,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
             ]);
@@ -56,8 +60,12 @@ class AuthController extends Controller
         if ($request->role === 'dosen') {
             DosenProfile::create([
                 'user_id' => $user->id,
-                'nip' => $request->nip,
-                'jabatan' => $request->jabatan,
+                'nama_lengkap' => $request->nama_lengkap,
+                'nidn' => $request->nidn,
+                'program_studi' => $request->program_studi,
+                'departemen' => $request->departemen,
+                'usia' => $request->usia,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
             ]);

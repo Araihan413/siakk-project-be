@@ -25,8 +25,11 @@ class DosenProfileController extends Controller
 
         $request->validate([
             'name' => 'sometimes|string|max:255',
-            'nip' => 'sometimes|string|unique:dosen_profiles,nip,' . $dosen->id,
-            'jabatan' => 'sometimes|string|max:255',
+            'nidn' => 'sometimes|string|unique:dosen_profiles,nidn,' . $dosen->id,
+            'program_studi' => 'sometimes|string|max:255',
+            'departemen' => 'nullable|string',
+            'usia' => 'nullable|integer',
+            'jenis_kelamin' => 'nullable|string',
             'no_hp' => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
         ]);
