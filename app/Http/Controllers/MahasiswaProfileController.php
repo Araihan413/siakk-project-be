@@ -29,8 +29,10 @@ class MahasiswaProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255', 
             'npm' => 'required|string|unique:mahasiswa_profiles,npm,' . $id,
-            'prodi' => 'required|string',
-            'angkatan' => 'nullable|string',
+            'program_studi' => 'required|string',
+            'semester' => 'nullable|string',
+            'usia' => 'nullable|integer',
+            'jenis_kelamin' => 'nullable|string',
             'alamat' => 'nullable|string',
             'no_hp' => 'nullable|string',
             'email' => 'required|email|unique:users,email,' . $user->id,
@@ -45,8 +47,10 @@ class MahasiswaProfileController extends Controller
 
         $profile->update([
             'npm' => $request->npm,
-            'prodi' => $request->prodi,
-            'angkatan' => $request->angkatan,
+            'program_studi' => $request->program_studi,
+            'semester' => $request->semester,
+            'usia' => $request->usia,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'no_hp' => $request->no_hp,
         ]);

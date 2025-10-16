@@ -11,10 +11,12 @@ class MahasiswaProfile extends Model
 
     protected $fillable = [
         'user_id',
-        // 'nama_lengkap',
+        'nama_lengkap',
         'npm',
-        'prodi',
-        'angkatan',
+        'program_studi',
+        'semester',
+        'usia',
+        'jenis_kelamin',
         'alamat',
         'no_hp',
     ];
