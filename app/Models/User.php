@@ -17,7 +17,10 @@ class User extends Authenticatable implements JWTSubject
 
 
     //RELASI DISINI
-
+    public function createdForms()
+    {
+        return $this->hasMany(Form::class, 'created_by');
+    }
 
 
     //BAGIAN INI SENSITIV CASE
