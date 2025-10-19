@@ -21,6 +21,12 @@ class MahasiswaProfile extends Model
         'no_hp',
     ];
 
+//     public function responses()
+// {
+//     return $this->hasMany(FormResponse::class, 'mahasiswa_id');
+// }
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
