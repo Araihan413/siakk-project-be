@@ -81,20 +81,105 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (!$token = JWTAuth::attempt($credentials)) {
+        if (!$accessToken = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
-        return response()->json(['message' => 'Login successful', 'role' => auth()->user()->role, 'token' => $token]);
+        $user = auth()->user();
+        $refreshToken = JWTAuth::claims(['type' => 'refresh'])->fromUser($user);
+        $accessCookie = cookie(
+            'pcys',
+            $accessToken,
+            60,
+            '/',
+            null,
+            true,
+            true,
+            false,
+            'Strict'
+        );
+
+        $refreshCookie = cookie(
+            'pcys_refresh',
+            $refreshToken,
+            60, 
+            '/',
+            null,
+            true,
+            true,
+            false,
+            'Strict'
+        );
+
+        return response()
+            ->json([
+                'message' => 'Login successful',
+                'role' => $user->role,
+                'name' => $user->name,
+                'email' => $user->email,
+            ])
+            ->cookie($accessCookie)
+            ->cookie($refreshCookie);
+    }
+
+    public function refresh(Request $request)
+    {
+        try {
+            $refreshToken = $request->cookie('pcys_refresh');
+
+            if (!$refreshToken) {
+                return response()->json(['error' => 'Refresh token missing'], 401);
+            }
+            $payload = JWTAuth::setToken($refreshToken)->getPayload();
+            if ($payload->get('type') !== 'refresh') {
+                return response()->json(['error' => 'Invalid refresh token'], 401);
+            }
+            $user = \App\Models\User::find($payload->get('sub'));
+            if (!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+            $newAccessToken = JWTAuth::claims(['type' => 'access'])->fromUser($user);
+            $accessCookie = cookie(
+                'pcys',
+                $newAccessToken,
+                60, 
+                '/',
+                null,
+                true,
+                true,
+                false,
+                'Strict'
+            );
+
+            return response()
+                ->json(['message' => 'Token refreshed'])
+                ->cookie($accessCookie);
+        } catch (TokenExpiredException $e) {
+            return response()->json(['error' => 'Refresh token expired'], 401);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Refresh failed', 'details' => $e->getMessage()], 400);
+        }
+        
     }
 
     public function logout()
     {
         try {
-            JWTAuth::invalidate(JWTAuth::getToken()); 
-            return response()->json(['message' => 'Logout berhasil']);
+            if (JWTAuth::getToken()) {
+                JWTAuth::invalidate(JWTAuth::getToken());
+            }
+            $cookieAccess = cookie()->forget('pcys');
+            $cookieRefresh = cookie()->forget('pcys_refresh');
+
+            return response()
+                ->json(['message' => 'Logout berhasil'])
+                ->withCookie($cookieAccess)
+                ->withCookie($cookieRefresh);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal logout, token mungkin tidak valid'], 400);
+            return response()->json([
+                'error' => 'Gagal logout',
+                'details' => $e->getMessage(),
+            ], 400);
         }
     }
 
