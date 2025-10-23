@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ->withMiddleware(function (Middleware $middleware): void {
             $middleware->alias([
                 'role' => \App\Http\Middleware\RoleMiddleware::class,
+                'jwt.cookie' => \App\Http\Middleware\JwtCookieMiddleware::class,
             ]);
 
             $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
